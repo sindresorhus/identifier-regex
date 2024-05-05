@@ -1,0 +1,48 @@
+{
+	"name": "identifier-regex",
+	"version": "0.0.0",
+	"description": "Regular expression for matching JavaScript identifiers",
+	"license": "MIT",
+	"repository": "sindresorhus/identifier-regex",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"type": "module",
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=18"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"identifier",
+		"regex",
+		"regexp",
+		"regular",
+		"expression",
+		"keyword",
+		"word",
+		"reserved",
+		"javascript",
+		"ecmascript"
+	],
+	"dependencies": {
+		"reserved-identifiers": "^1.0.0"
+	},
+	"devDependencies": {
+		"ava": "^6.1.2",
+		"xo": "^0.58.0"
+	}
+}
