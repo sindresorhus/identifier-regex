@@ -1,6 +1,6 @@
 {
 	"name": "identifier-regex",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Regular expression for matching JavaScript identifiers",
 	"license": "MIT",
 	"repository": "sindresorhus/identifier-regex",
