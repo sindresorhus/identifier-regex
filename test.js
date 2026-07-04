@@ -23,6 +23,9 @@ const nonMatches = [
 	'true',
 	'await',
 	'undefined',
+	'NaN', // Global property
+	'Infinity', // Global property
+	'globalThis', // Global property
 	'1foo',
 	'@foo',
 	' x ',
@@ -84,4 +87,37 @@ test('non-exact matching edge cases', t => {
 	// Edge cases with numbers
 	t.is('1x'.match(regex), null); // Numbers can't start identifiers
 	t.is('x1'.match(regex)?.[0], 'x1'); // But can contain them
+});
+
+test('checkReserved: false', t => {
+	const regex = identifierRegex({checkReserved: false});
+
+	for (const match of matches) {
+		t.true(regex.test(match));
+	}
+
+	// Reserved words and global properties are now allowed, syntax is still checked
+	t.true(regex.test('true'));
+	t.true(regex.test('await'));
+	t.true(regex.test('undefined'));
+	t.true(regex.test('if'));
+	t.true(regex.test('break'));
+	t.true(regex.test('NaN'));
+	t.true(regex.test('Infinity'));
+	t.true(regex.test('globalThis'));
+
+	// Syntax errors are still rejected
+	t.false(regex.test('1foo'));
+	t.false(regex.test('@foo'));
+	t.false(regex.test(' x '));
+	t.false(regex.test('a b'));
+	t.false(regex.test(''));
+	t.false(regex.test('123'));
+
+	const nonExactRegex = identifierRegex({exact: false, checkReserved: false});
+	t.is(' break '.match(nonExactRegex)?.[0], 'break');
+	t.is(' await '.match(nonExactRegex)?.[0], 'await');
+	t.is('.for'.match(nonExactRegex)?.[0], 'for'); // Property key use case
+	t.is('let x'.match(nonExactRegex)?.[0], 'let'); // Reserved word matched mid-scan
+	t.is('@if'.match(nonExactRegex), null); // Boundary still respected
 });
